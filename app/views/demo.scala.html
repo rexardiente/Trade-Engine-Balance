@@ -1,0 +1,385 @@
+@()(implicit conf: play.api.Configuration)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mr. Balance Demo Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("styles/style.css")" media="screen" />
+</head>
+<body class="grid-container">
+  <div id="page-wrapper" class="grid-x align-center grid-margin-x">
+    <div id="error-message" class="cell">
+      <p id="success"></p>
+      <p id="fail"></p>
+      <p id="info"></p>
+    </div>
+    <div id="login-page" class="cell small-6">
+      <section id="login" class="custom-box">
+        <h1>Login</h1>
+        <form id="login-form" name="loginForm">
+          <fieldset>
+            <div class="form-group grid-x">
+              <label for="account_id" class="cell small-3">Account ID:</label>
+              <input type="text" name="account_id" id="account_id" required class="cell small-9">
+            </div>
+            <div class="form-group grid-x align-right">
+              <button type="submit" id="login-submit" class="button">Login</button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+    </div>
+    <div id="inner-page" class="small-12 cell">
+      <header class="grid-x align-middle">
+        <div class="small-10 cell">
+          <ul class="grid-x">
+            <li class="menu small-2 cell"><a href="#account" class="active">Account</a></li>
+            <li class="menu small-2 cell"><a href="#trade">Trade</a></li>
+            <li class="menu small-2 cell"><a href="#open-orders">Open Orders</a></li>
+            <li class="menu small-2 cell"><a href="#transaction-history">History</a></li>
+          </ul>
+        </div>
+        <div class="small-2 cell">
+          <select class="align-right" name="currency-pair" id="currency-pair">
+            @conf.getStringList("currencyPair").get.map { pair =>
+              <option value="@pair">@pair</option>
+            }
+          </select>
+        </div>
+      </header>
+      <main class="grid-x">
+        <section id="account" class="small-12 cell">
+          <div id="current-account-container" class="grid-x">
+            <div class="small-12 cell">
+              <div class="custom-box">
+                <span id="current-account"></span>
+                <a id="logout-account" href="javascript:;"><small>Click to Logout</small></a>
+              </div>
+            </div>
+          </div>
+          <div id="balance-container" class="grid-x">
+            <div class="small-12 cell">
+              <h1>Balance</h1>
+              <table id="balance-table">
+                <thead>
+                    <tr>
+                      <th>Currency</th><th>Total Balance</th>
+                      <th>Available Balance</th><th>Reserved Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>...</td><td>...</td>
+                      <td>...</td><td>...</td>
+                    </tr>
+                  </tbody>
+              </table>
+              <a href="javascript:;" id="refresh-balance"><small>Refresh Balance</small></a>
+            </div>
+          </div>
+          <hr/>
+          <div class="grid-x grid-margin-x">
+            <div id="deposit-container" class="small-6 cell">
+              <h1>Deposit</h1>
+              <form id="deposit-form" class="custom-box">
+                <fieldset>
+                  <div class="form-group grid-x">
+                    <label for="amount" class="small-3 cell no-padding">Amount:</label>
+                    <input type="number" name="amount" id="deposit-amount" required class="small-9 cell">
+                  </div>
+                  <div class="form-group grid-x">
+                    <label for="id_currency" class="small-3 cell no-padding">Currency:</label>
+                    <select name="id_currency" id="id_currency" class="small-9 cell">
+                      <option value="JPY">JPY</option>
+                      <option value="USD">USD</option>
+                      <option value="BTC">BTC</option>
+                      <option value="XRP">XRP</option>
+                      <option value="ETH">ETH</option>
+                    </select>
+                  </div>
+                  <div class="grid-x align-right">
+                    <input type="hidden" name="is_deposit" value="true">
+                    <button type="submit" id="deposit-submit" class="button">Deposit</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div id="withdraw-container" class="small-6 cell">
+              <h1>Withdraw</h1>
+              <form id="withdraw-form" class="custom-box">
+                <fieldset>
+                  <div class="form-group grid-x">
+                    <label for="amount" class="small-3 cell no-padding">Amount:</label>
+                    <input type="number" name="amount" id="withdraw-amount" required class="small-9 cell">
+                  </div>
+                  <div class="form-group grid-x">
+                    <label for="id_currency" class="small-3 cell no-padding">Currency:</label>
+                    <select name="id_currency" id="id_currency" class="small-9 cell">
+                      <option value="JPY">JPY</option>
+                      <option value="USD">USD</option>
+                      <option value="BTC">BTC</option>
+                      <option value="XRP">XRP</option>
+                      <option value="ETH">ETH</option>
+                    </select>
+                  </div>
+                  <div class="grid-x align-right">
+                    <input type="hidden" name="is_deposit" value="false">
+                    <button type="submit" id="withdraw-submit" class="button">Withdraw</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="trade" class="small-12 cell">
+          <div id="pairlist-display" class="grid-x">
+            <div class="small-12 cell">
+              <h1>Pairlist</h1>
+              <table id="pairlist-table">
+                <thead>
+                  <tr>
+                    <th>Currency</th>
+                    <th>Price</th>
+                    <th>24Hr Change</th>
+                    <th>24Hr Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr/>
+          <div id="orderbook-display-container" class="grid-x grid-margin-x">
+            <h1 class="small-12 cell">
+              Orderbook -
+              <span class="base-currency"></span>/<span class="counter-currency"></span>
+            </h1>
+            <div class="small-6 cell">
+              <h2>Bids</h2>
+              <table id="bids-table">
+                <thead>
+                  <tr>
+                    <th>Price (<span class="counter-currency"></span>)</th>
+                    <th>Total (<span class="base-currency"></span>)</th>
+                    <th>Total (<span class="counter-currency"></span>)</th>
+                    <th>Sum (<span class="counter-currency"></span>)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>...</td><td>...</td><td>...</td><td>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="small-6 cell">
+              <h2>Asks</h2>
+              <table id="asks-table">
+                <thead>
+                  <tr>
+                    <th>Price (<span class="counter-currency"></span>)</th>
+                    <th>Total (<span class="base-currency"></span>)</th>
+                    <th>Total (<span class="counter-currency"></span>)</th>
+                    <th>Sum (<span class="counter-currency"></span>)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>...</td><td>...</td><td>...</td><td>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr/>
+          <div id="place-order-container" class="grid-x grid-margin-x">
+            <h1 class="small-12 cell">Place Order</h1>
+            <div class="small-6 cell">
+              <form id="buy-order-form" name="buy" class="custom-box" autocomplete="off">
+                <fieldset>
+                  <div class="grid-x">
+                    <h2>Buy <span class="base-currency"></span></h2>
+                    <input type="hidden" name="side" value="BUY">
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="market-buy" class="small-3 cell no-padding">Market Order:</label>
+                    <input type="checkbox" name="market" id="market-buy" class="market-order">
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="buy-price" class="small-3 cell no-padding">Price:</label>
+                    <input
+                      type="number"
+                      name="price"
+                      id="buy-price"
+                      step="0.00000001"
+                      required
+                      class="small-8 cell no-margin price">
+                    <span class="small-1 cell counter-currency"></span>
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="buy-amount" class="small-3 cell no-padding">Amount:</label>
+                    <input
+                      type="number"
+                      name="amount"
+                      id="buy-amount"
+                      step="0.00000001"
+                      required
+                      class="small-8 cell no-margin amount">
+                    <span class="small-1 cell base-currency"></span>
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="buy-total" class="small-3 cell no-padding">Total:</label>
+                    <input
+                      type="number"
+                      name="total"
+                      id="buy-total"
+                      step="0.00000001"
+                      required
+                      disabled
+                      class="small-8 cell no-margin">
+                    <span class="small-1 cell counter-currency"></span>
+                  </div>
+                  <div class="grid-x align-right">
+                    <button type="submit" id="buy-order-submit" class="button">Submit</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+            <div class="small-6 cell">
+              <form id="sell-order-form" name="sell" class="custom-box" autocomplete="off">
+                <fieldset>
+                  <div class="grid-x">
+                    <h2>Sell <span class="base-currency"></span></h2>
+                    <input type="hidden" name="side" value="SELL">
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="market-sell" class="small-3 cell no-padding">Market Order:</label>
+                    <input type="checkbox" name="market" id="market-sell" class="market-order">
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="sell-price" class="small-3 cell no-padding">Price:</label>
+                    <input
+                      type="number"
+                      name="price"
+                      id="sell-price"
+                      step="0.00000001"
+                      required class="small-8 cell no-margin price">
+                    <span class="small-1 cell counter-currency"></span>
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="sell-amount" class="small-3 cell no-padding">Amount:</label>
+                    <input
+                      type="number"
+                      name="amount"
+                      id="sell-amount"
+                      step="0.00000001"
+                      required
+                      class="small-8 cell no-margin amount">
+                    <span class="small-1 cell base-currency"></span>
+                  </div>
+                  <div class="form-group grid-x align-middle">
+                    <label for="sell-total" class="small-3 cell no-padding">Total:</label>
+                    <input
+                      type="number"
+                      name="total"
+                      id="sell-total"
+                      step="0.00000001"
+                      required
+                      disabled
+                      class="small-8 cell no-margin">
+                    <span class="small-1 cell counter-currency"></span>
+                  </div>
+                  <div class="grid-x align-right">
+                    <button type="submit" id="sell-order-submit" class="button">Submit</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="transaction-history" class="small-12 cell">
+          <h2>Funds History</h2>
+          <table id="user-funds-history-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Time</th>
+                <th>Side</th><th>Amount</th>
+                <th>Currency</th>
+              </tr>
+            </thead>
+            <tbody id="funds-history">
+              <tr>
+                <td>...</td><td>...</td>
+                <td>...</td><td>...</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Trade History</h2>
+          <table id="user-trade-history-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Time</th>
+                <th>Side</th><th>Amount</th>
+                <th>Currency</th><th>Price</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="trade-history">
+              <tr>
+                <td>...</td><td>...</td>
+                <td>...</td><td>...</td>
+                <td>...</td><td>...</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="javascript:;" id="refresh-transaction-history">
+            <small>Refresh Transaction History</small>
+          </a>
+        </section>
+
+        <section id="open-orders" class="small-12 cell">
+          <h1>
+            Open Orders - <span class="base-currency"></span>/<span class="counter-currency"></span>
+          </h1>
+          <table id="open-orders-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Time</th>
+                <th>Side</th><th>Amount</th>
+                <th>Price</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>...</td><td>...</td>
+                <td>...</td><td>...</td>
+                <td>...</td><td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script>
+      window.mr = {
+        balanceURL: '@conf.getString("url.mr-balance")',
+        tradeEngineURL: '@conf.getString("url.mr-trade-engine")'
+      }
+    </script>
+    <script src='@routes.Assets.versioned("scripts/dist/main.js")'></script>
+  </div>
+</body>
+</html>

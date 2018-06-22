@@ -1,0 +1,15 @@
+package object errors {
+  val UnknownError = MrError(0)
+  val AuthenticationError = MrError(0)
+  val SubjectConflicts = MrError(0)
+  val SubjectNotExists = MrError(0)
+  val ObjectConflicts = MrError(0)
+  val ObjectNotExists = MrError(0)
+  val IllegalToken = MrError(0)
+  val ExpiredToken = MrError(0)
+  val InvalidToken = MrError(0)
+  val IneffectiveToken = MrError(0)
+  val InsufficientPermission = MrError(0)
+  val InvalidConsole = MrError(0)
+  val NoContent = MrError(0)
+}

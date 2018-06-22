@@ -1,0 +1,27 @@
+-- # --- !Ups
+-- create or replace function "OPEN_ORDERS"(
+--   "ID_ACCOUNT_REF" uuid,
+--   "ID_CURRENCY_BASE" text,
+--   "ID_CURRENCY_COUNTER" text
+-- ) RETURNS TABLE (
+--   "ID" integer,
+--   "ID_ORDER" uuid,
+--   "ACCOUNT_REF" uuid,
+--   "TRADE_TYPE" trade,
+--   "SIDE" side,
+--   "PRICE" decimal(21, 2),
+--   "AMOUNT" decimal(21, 2),
+--   "CURRENCY_BASE" currency,
+--   "CURRENCY_COUNTER" currency,
+--   "CREATED_AT" timestamp
+-- )
+-- as
+-- $BODY$
+-- BEGIN
+--   RETURN QUERY SELECT * FROM "TRANSACTIONS";;
+-- END;;
+-- $BODY$
+-- LANGUAGE plpgsql;
+
+-- # --- !Downs
+-- drop function "OPEN_ORDERS"(uuid,text,text);

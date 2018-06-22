@@ -1,0 +1,18 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/application.conf,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/application.conf)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/logback.xml,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/logback.xml)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/routes,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/routes)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/1.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/1.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/10.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/10.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/11.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/11.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/12.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/12.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/2.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/2.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/3.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/3.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/4.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/4.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/5.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/5.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/6.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/6.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/7.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/7.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/8.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/8.sql)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Development/Projects/mr-balance/conf/evolutions/default/9.sql,/Volumes/Development/Projects/mr-balance/target/scala-2.12/classes/evolutions/default/9.sql)[0m

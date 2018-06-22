@@ -1,0 +1,40 @@
+# --- !Ups
+
+CREATE TYPE SIDE AS ENUM (
+  'BUY',
+  'SELL');
+
+CREATE TYPE CURRENCY AS ENUM (
+  'BTC',
+  'LTC',
+  'USD',
+  'XRP',
+  'REP',
+  'ETC',
+  'XLM',
+  'DOG',
+  'ETH',
+  'BCH',
+  'DCT',
+  'XMR',
+  'ZEC',
+  'JPY',
+  'VDX');
+
+CREATE TYPE PAYMENT AS ENUM (
+  'DEPOSIT',
+  'WITHDRAW');
+
+CREATE TYPE TRADE AS ENUM (
+  'CREATE',
+  'CANCEL',
+  'CANCELLED',
+  'FILL',
+  'PARTIALLY_FILL');
+
+# --- !Downs
+
+DROP TYPE TRADE;
+DROP TYPE PAYMENT;
+DROP TYPE CURRENCY;
+DROP TYPE SIDE;
